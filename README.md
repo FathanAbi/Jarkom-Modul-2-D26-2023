@@ -178,6 +178,97 @@ ping www.abimanyu.d26.com
 
 ![](./img/2pingwwwabimanyu.png)
 
+# Soal 4
+Kemudian, karena terdapat beberapa web yang harus di-deploy, buatlah subdomain parikesit.abimanyu.yyy.com yang diatur DNS-nya di Yudhistira dan mengarah ke Abimanyu.
+
+## Pengerjaan
+pada abimanyu.d26.com di /root pada node yudhistira tambahkan 
+``` txt
+parikesit	IN	A	192.204.3.3	;
+```
+jalankan kembali confWeb.sh
+
+abimanyu.d26.com:
+
+![](./img/4abimanyud26com.png)
+
+## Testing
+ping parikesit.abimanyu.d26.com
+
+![](./img/4pingparikesit.png)
+
+# Soal 5
+Buat juga reverse domain untuk domain utama. (Abimanyu saja yang direverse)
+
+## Pengerjaan
+edit named.conf.local dengan menambahkan:
+
+![](./img/5namedconflocal.png)
+
+pada confWeb.sh tambahkan command untuk men-copy /etc/bind/db.local ke /etc/bind/abimanyu dengan nama 3.204.192.in-addr.arpa, kemudian copy file 3.204.192.in-addr.arpa ke root agar tidak hilang. edit 3.204.192.in-addr.arpa di root menjadi:
+
+![](./img/53204192inaddrarpa.png)
+
+tambahkan comman untuk mencopy 3.204.192.in-addr.arpa dari .root ke /etc/bind/abimanyu
+
+![](./img/5confWeb.png)
+
+jalankan confWeb.sh
+
+## Tesitng
+jalankan command
+``` txt
+host -t PTR 192.204.3.3
+```
+![](./img/5hostptr19220433.png)
+
+# Soal 6
+Agar dapat tetap dihubungi ketika DNS Server Yudhistira bermasalah, buat juga Werkudara sebagai DNS Slave untuk domain utama
+
+## Pengerjaan 
+Tambahkan konfigurasi named.conf.local di DNSMASTER-Yudhistira:
+
+![](./img/6yudhisnamedconf1.png)
+![](./img/6yudhisnamedconf2.png)
+![](./img/6yudhisnamedconf3.png)
+
+jalankan kembali confWeb.sh
+
+pada node DNSSLAVE-Werkudara buat script start.sh untuk instalasi bind9
+
+start.sh
+
+![](./img/6werkustart.png)
+
+jalankan script. kemudian buat konfigurasi named.conf.local. copy named.conf.local dari /etc/bind9/named.conf.local ke /root agar konfigurasi tidak hilang. modifikasi named.conf.local di root
+
+![](./img/6Werkunamedconf1.png)
+![](./img/6Werkunamedconf2.png)
+
+
+buat script confWeb.sh untuk menn-copy named.conf.local dari /root ke /etc/bind/ dan restart bind9
+
+![](./img/6WerkuconfWeb.png)
+
+## Testing
+stop service bind9 di yudhistira:
+``` txt
+service bind9 stop
+```
+![](./img/6servicebind9stop.png)
+
+pada client edit start.sh untuk tambahkan IP DNSSLAVE-Werkudara ke /etc/resolv.conf
+
+![](./img/6werkustart2.png)
+
+lakukan ping terhadap abimanyu.d26.com
+
+![](./img/6pingabimanyu.png)
+
+
+
+
+
 
 
 
