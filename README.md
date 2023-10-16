@@ -124,6 +124,9 @@ didapat bahwa dapat terhubung ke internet
 # Soal 2 dan 3
 Buatlah website utama pada node arjuna dengan akses ke arjuna.yyy.com dengan alias www.arjuna.yyy.com dengan yyy merupakan kode kelompok
 
+Dengan cara yang sama seperti soal nomor 2, buatlah website utama dengan akses ke abimanyu.yyy.com dan alias www.abimanyu.yyy.com.
+
+
 ## Pengerjaan:
 pada node DNSMASTER-Yudhistira modifikasi script start.sh untuk menginsitall bind9
 
@@ -334,6 +337,86 @@ ping rjp.baratayuda.abimanyu.d26.com
 ping www.rjp.baratayuda.abimanyu.d26.com
 
 ![](./img/8pingwwwrjpbaratayuda.png)
+
+
+# Soal 9 dan 10
+Arjuna merupakan suatu Load Balancer Nginx dengan tiga worker (yang juga menggunakan nginx sebagai webserver) yaitu Prabakusuma, Abimanyu, dan Wisanggeni. Lakukan deployment pada masing-masing worker.
+
+Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan server_name pada soal nomor 1. Untuk melakukan pengecekan akses alamat web tersebut kemudian pastikan worker yang digunakan untuk menangani permintaan akan berganti ganti secara acak. Untuk webserver di masing-masing worker wajib berjalan di port 8001-8003. Contoh
+    - Prabakusuma:8001
+    - Abimanyu:8002
+    - Wisanggeni:8003
+
+
+## Pengerjaan
+### woker
+pada node arjuna, abimanyu, prabukusuma, dan wisanggeni buat script start.sh untuk menginstall nginx, php, dan php-fpm.
+
+![](./img/9arjunastart.png)
+
+pada tiap worker buat script confWorker.sh untuk mengkonfigurasikan worker. pertama tambahkan perintah untuk membuat direktori /var/www/abimanyu. pada resource edit home.html tambahkan informasi nama server yang sesuai:
+
+contoh home.html di abimanyu:
+
+![](./img/9abimanyuhome.png)
+
+pada worker prabukusuma dan wisanggeni tambahkan 
+``` html
+<h3>Server: Prabukusama / Wisanggeni</h3>
+```
+sesuai servernya. kemudian tambahkan perintah copy index.php dan home.html ke /var/www/abimanyu. kemudian buat file abimanyu di /root yang berisikan:
+
+di abimanyu:
+
+![](./img/9abimanyuabimanyu1.png)
+![](./img/9abimanyuabimanyu2.png)
+
+di prabukusuma
+
+![](./img/9prabukusumaabimanyu1.png)
+![](./img/9prabukusumaabimanyu2.png)
+
+di wisanggeni:
+![](./img/9wisanggeniabimanyu1.png)
+![](./img/9wisanggeniabimanyu2.png)
+
+copy file tersebut ke /etc/nginx/sites-available lalu buat symbolic link antara /etc/nginx/sites-available/abimanyu dengan /etc/nginx/sites-enabled. hapus file default dari /etc/nginx/sites-enabled. restart nginx dan php-fpm.
+
+berikut script confWorker.sh:
+![](./img/9abimanyuconfWorker.png)
+
+jalankan confWorker.sh
+
+### load balancer
+pada node arjuna buat script start.sh untuk menginstall nginx. setelah itu buat script confLB untuk men-configure load balancer. pertama buat file lb-arjuna di /root yang berisikan:
+
+![](./img/9arjunalb.png)
+
+kemudian pada script confLb.sh masukkan perintah untuk men-copy lb-arjuna ke /etc/nginx/sites-available. kemudian tambahkan perintah untuk membuat symbolic link antara /etc/nginx/sites-available/lb-jarkom dengan /etc/nginx/sites-enabled. hapus file default dari /etc/nginx/sites-enabled. terakhir restart nginx
+
+berikut script confLB.sh:
+![](./img/9arjunaconflb.png)
+
+kalankan confLb.sh
+
+## Testing
+di client, install lynx lalu jalankan perintah sebanyak 3 kali:
+```txt
+lynx http://arjuna.d26.com
+```
+![](./img/9lynx1.png)
+![](./img/9lynx2.png)
+![](./img/9lynx3.png)
+
+
+
+
+
+
+
+
+
+
 
 
 
