@@ -445,7 +445,7 @@ pada client jalankan perintah lynx abimanyu.d26.com/home
 ![](./img/12lynx.png)
 
 
-# Soal 13 dan 14
+# Soal 13 
 Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
 
 ## Pengerjaan
