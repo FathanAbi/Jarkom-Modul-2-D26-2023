@@ -139,7 +139,7 @@ buat script confWeb.sh untuk mengkonfigurasi arjuna dan abimanyu
 
 kemudian pada confWeb.sh tambahkan command untuk men-copy kembali ke /etc/bind.
 
-pada confWeb.sh tambahkan command mkdir untuk membuat direktori arjuna dan abimanyu dan copy /etc/bind/db.local ke kedua direktori dengan nama arjuna.d26.com dan abimanyu.d26.com yang telah dibuat. copy kembali arjuna.d26.com dan abimanyu.d26.com ke /root agar tidak hilang. kemudian modifikasi keduanya yang ada di root
+pada confWeb.sh tambahkan command mkdir untuk membuat direktori arjuna dan abimanyu dan copy /etc/bind/db.local ke kedua direktori dengan nama arjuna.d26.com dan abimanyu.d26.com yang telah dibuat. copy kembali arjuna.d26.com dan abimanyu.d26.com ke /root agar tidak hilang. kemudian modifikasi keduanya yang ada di root, setelah dimodifikasi copy kembali ke /etc/bind/arjuna dan /etc/bind/abimanyu 
 
 arjuna.d26.com:
 
@@ -264,6 +264,77 @@ pada client edit start.sh untuk tambahkan IP DNSSLAVE-Werkudara ke /etc/resolv.c
 lakukan ping terhadap abimanyu.d26.com
 
 ![](./img/6pingabimanyu.png)
+
+# Soal 7
+Seperti yang kita tahu karena banyak sekali informasi yang harus diterima, buatlah subdomain khusus untuk perang yaitu baratayuda.abimanyu.yyy.com dengan alias www.baratayuda.abimanyu.yyy.com yang didelegasikan dari Yudhistira ke Werkudara dengan IP menuju ke Abimanyu dalam folder Baratayuda.
+
+## Pengerjaan
+pada abimanyu.d26.com di node DNSMASTER-Yudhistira tambahkan konfigurasi menjadi:
+
+![](./img/7yudhisabimanyu.png)
+
+kemudian edit /etc/bind/named.conf.options
+
+![](./img/7yudhisnamedconfoptions.png)
+
+copy named.conf.options dari /etc/bind ke /root agar tidak hilang.
+
+edit script confWeb.sh untuk men-copy kembali named.conf.options dari /root ke /etc/bind
+
+![](./img/7yudhisconfweb.png)
+
+jalankan confWeb.sh
+
+pada node DNSSLAVE-Werkudara edit /etc/bind/named.conf.options
+
+![](./img/7Werkunamedconfoptions.png)
+
+copy named.conf.options dari /etc/bind ke /root agar tidak hilang.
+
+edit script confWeb.sh untuk men-copy kembali named.conf.options dari /root ke /etc/bind
+
+![](./img/7Werkuconfweb.png)
+
+Edit named.conf.local, tambahkan:
+
+![](./img/7Werkunamedconflocal.png)
+
+pada confWeb.sh tambahkan command mkdir untuk membuat direktori baratayuda dan copy /etc/bind/db.local ke baratayuda dengan nama baratayuda.abimanyu.d26.com. copy kembali baratayuda.abimanyu.d26.com ke /root agar tidak hilang. kemudian modifikasi baratayuda.abimanyu.d26.com yang ada di root, lalu copy kembali ke /etc/bind/baratayuda
+
+baratayuda.abimanyu.d26.com:
+
+![](./img/7werkubaratayuda.png)
+
+restart service bind9
+
+## Testing
+ping baratayuda.abimanyu.d26.com
+
+![](./img/7pingbaratayuda.png)
+
+ping www.baratayuda.abimanyu.d26.com
+
+![](./img/7pingwwwbaratayuda.png)
+
+# Soal 8
+Untuk informasi yang lebih spesifik mengenai Ranjapan Baratayuda, buatlah subdomain melalui Werkudara dengan akses rjp.baratayuda.abimanyu.yyy.com dengan alias www.rjp.baratayuda.abimanyu.yyy.com yang mengarah ke Abimanyu
+
+## Pengerjaan:
+edit baratayuda.abimanyu.d26.com pada node werkudara menjadi:
+
+![](./img/8werkubaratayuda.png)
+
+jalankan confWeb.sh
+
+## Testing
+ping rjp.baratayuda.abimanyu.d26.com
+
+![](./img/8pingrjpbaratayuda.png)
+
+ping www.rjp.baratayuda.abimanyu.d26.com
+
+![](./img/8pingwwwrjpbaratayuda.png)
+
 
 
 
