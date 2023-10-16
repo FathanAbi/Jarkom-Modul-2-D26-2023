@@ -409,6 +409,89 @@ lynx http://arjuna.d26.com
 ![](./img/9lynx3.png)
 
 
+# Soal 11
+Selain menggunakan Nginx, lakukan konfigurasi Apache Web Server pada worker Abimanyu dengan web server www.abimanyu.yyy.com. Pertama dibutuhkan web server dengan DocumentRoot pada /var/www/abimanyu.yyy
+
+## Pengerjaan
+tambahkan perintah install apache2 dan libapache2-mod-php7.0 ke script start.sh. buat script confApache.sh untuk mengkonfigurasi apache2 web server. tambahkan perintah untuk men-copy /etc/apache2/sites-available/000-default.conf ke /root/abimanyu.d26.com.conf agar tidak hilang. edit abimanyu.d26.com.conf menjadi
+
+![](./img/11abimanyud26comconf.png)
+
+
+copy kembali abimanyu.d26.com.conf ke /etc/apache2/sites-available/. lalu aktifkan menggunakan a2ensite abimanyu.d26.com. dan restart apache2. lalu buat direktori baru /var/www/abimanhyu.d26.com. copy file resource ke /var/www/abimanyu.d26.com
+
+script confApache.sh:
+
+![](./img/11confApache.png)
+
+## Testing
+jalankan perintah lynx abimanyu.d26.com
+
+![](./img/11pingabimanyu.png)
+
+# Soal 12
+Setelah itu ubahlah agar url www.abimanyu.yyy.com/index.php/home menjadi www.abimanyu.yyy.com/home.
+
+## Pengerjaan
+Edit abimanyu.d26.conf.com dengan menambahkan Alias
+
+![](./img/12abimanyu.png)
+
+restart apache2
+
+## Testing
+pada client jalankan perintah lynx abimanyu.d26.com/home
+
+![](./img/12lynx.png)
+
+
+# Soal 13 dan 14
+Selain itu, pada subdomain www.parikesit.abimanyu.yyy.com, DocumentRoot disimpan pada /var/www/parikesit.abimanyu.yyy
+
+## Pengerjaan
+pada confApache.sh tambahkan perintah copy 000-default.conf ke /root/parikesit.abimanyu.d26.com.conf agar tidak hilang. edit parikesit.abimanyu.d26.com.conf
+
+![](./img/13parikesit.png)
+
+tambahkan perintah copy parikesit.abimanyu.d26.com.conf ke /etc/apache2/sites-available. lalu aktifkan menggunakan a2ensite abimanyu.d26.com. dan restart apache2. lalu buat direktori baru /var/www/abimanhyu.d26.com. buat index.php berisikan
+``` php
+<?php
+echo "this is parikesit"
+?>
+```
+lalu copy ke /var/www/parikesit.abimanyu.d26.com
+
+![](./img/13confapache.png)
+
+## Testing
+jalankan perintah lynx parikesit.abimanyu.d26.com
+
+![](./img/13lynx.png)
+
+# Soal 14
+Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
+
+## Pengerjaan
+pada confApache.sh tambahkan perintah mkdir public dan secret di /var/www/parikesit.abimanyu.d26.com.
+
+![](./img/14confApache.png)
+
+lalu edit parikesit.abimanyu.d26.com
+
+![](./img/14parikesit.png)
+
+restart apache2
+
+## Testing
+jalankan perintah lynx parikesit.abimanyu.d26.com/public
+
+![](./img/14lynxpublic.png)
+
+jalankan perintah lynx parikesit.abimanyu.d26.com/secret
+
+![](./img/14lynxsecret.png)
+
+
 
 
 
