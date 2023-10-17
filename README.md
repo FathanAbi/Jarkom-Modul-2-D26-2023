@@ -480,6 +480,33 @@ jalankan perintah lynx parikesit.abimanyu.d26.com/secret
 Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden
 
 ## Pengerjaan
+edit parikesti.abimanyu.d26.com.conf tambahkan:
+
+![](./img/15parikesitconf.png)
+
+## Testing
+lynx http://parikesit.abimanyu.d26.com/gakada akan error 404
+![](./img/15notfound.png)
+
+lynx http://parikesit.abimanyu.d26.com/secret akan error 403
+![](./img/15forbidden.png)
+
+# Soal 16
+Buatlah suatu konfigurasi virtual host agar file asset www.parikesit.abimanyu.yyy.com/public/js menjadi 
+www.parikesit.abimanyu.yyy.com/js 
+
+## pengerjaan
+edit parikesit.abimanyu.d26.com.conf dengan menambahkan
+
+![](./img/16parikesitconf.png)
+
+## Testing
+lynx parikesit/abimanyu.d26.com/js
+
+![](./img/16lynxjs.png)
+
+# Soal 17s
+
 
 
 
