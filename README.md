@@ -349,22 +349,12 @@ Kemudian gunakan algoritma Round Robin untuk Load Balancer pada Arjuna. Gunakan 
 
 
 ## Pengerjaan
-### woker
+### worker
 pada node arjuna, abimanyu, prabukusuma, dan wisanggeni buat script start.sh untuk menginstall nginx, php, dan php-fpm.
 
 ![](./img/9arjunastart.png)
 
-pada tiap worker buat script confWorker.sh untuk mengkonfigurasikan worker. pertama tambahkan perintah untuk membuat direktori /var/www/abimanyu. pada resource edit home.html tambahkan informasi nama server yang sesuai:
-
-contoh home.html di abimanyu:
-
-![](./img/9abimanyuhome.png)
-
-pada worker prabukusuma dan wisanggeni tambahkan 
-``` html
-<h3>Server: Prabukusama / Wisanggeni</h3>
-```
-sesuai servernya. kemudian tambahkan perintah copy index.php dan home.html ke /var/www/abimanyu. kemudian buat file abimanyu di /root yang berisikan:
+pada tiap worker buat script confWorker.sh untuk mengkonfigurasikan worker. pertama tambahkan perintah untuk membuat direktori /var/www/abimanyu. kemudian tambahkan perintah copy index.php ke /var/www/abimanyu. kemudian buat file abimanyu di /root yang berisikan:
 
 di abimanyu:
 
@@ -383,7 +373,7 @@ di wisanggeni:
 copy file tersebut ke /etc/nginx/sites-available lalu buat symbolic link antara /etc/nginx/sites-available/abimanyu dengan /etc/nginx/sites-enabled. hapus file default dari /etc/nginx/sites-enabled. restart nginx dan php-fpm.
 
 berikut script confWorker.sh:
-![](./img/9abimanyuconfWorker.png)
+![](./img/9confWorker.png)
 
 jalankan confWorker.sh
 
@@ -453,13 +443,7 @@ pada confApache.sh tambahkan perintah copy 000-default.conf ke /root/parikesit.a
 
 ![](./img/13parikesit.png)
 
-tambahkan perintah copy parikesit.abimanyu.d26.com.conf ke /etc/apache2/sites-available. lalu aktifkan menggunakan a2ensite abimanyu.d26.com. dan restart apache2. lalu buat direktori baru /var/www/abimanhyu.d26.com. buat index.php berisikan
-``` php
-<?php
-echo "this is parikesit"
-?>
-```
-lalu copy ke /var/www/parikesit.abimanyu.d26.com
+tambahkan perintah copy parikesit.abimanyu.d26.com.conf ke /etc/apache2/sites-available. lalu aktifkan menggunakan a2ensite abimanyu.d26.com. dan restart apache2. lalu buat direktori baru /var/www/abimanhyu.d26.com. copy index.php dari resource ke /var/www/parikesit.abimanyu.d26.com
 
 ![](./img/13confapache.png)
 
@@ -472,9 +456,10 @@ jalankan perintah lynx parikesit.abimanyu.d26.com
 Pada subdomain tersebut folder /public hanya dapat melakukan directory listing sedangkan pada folder /secret tidak dapat diakses (403 Forbidden).
 
 ## Pengerjaan
-pada confApache.sh tambahkan perintah mkdir public dan secret di /var/www/parikesit.abimanyu.d26.com.
+pada confApache.sh tambahkan perintah mkdir secret di /var/www/parikesit.abimanyu.d26.com.
 
-![](./img/14confApache.png)
+![](./img/14confapache.png)
+
 
 lalu edit parikesit.abimanyu.d26.com
 
@@ -490,6 +475,13 @@ jalankan perintah lynx parikesit.abimanyu.d26.com/public
 jalankan perintah lynx parikesit.abimanyu.d26.com/secret
 
 ![](./img/14lynxsecret.png)
+
+# Soal 15
+Buatlah kustomisasi halaman error pada folder /error untuk mengganti error kode pada Apache. Error kode yang perlu diganti adalah 404 Not Found dan 403 Forbidden
+
+## Pengerjaan
+
+
 
 
 
