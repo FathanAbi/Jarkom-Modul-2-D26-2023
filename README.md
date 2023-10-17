@@ -505,7 +505,37 @@ lynx parikesit/abimanyu.d26.com/js
 
 ![](./img/16lynxjs.png)
 
-# Soal 17s
+# Soal 17
+Agar aman, buatlah konfigurasi agar www.rjp.baratayuda.abimanyu.yyy.com hanya dapat diakses melalui port 14000 dan 14400.
+
+## Pengerjaan
+buat konfigurasi rjp.baratayuda.abimanyu.d26.com.conf yang berisikan:
+
+![](./img/17rjpconf.png)
+
+kemudian edit juga ports.conf agar dapat listen port 14000 dan 14400
+
+![](./img/17portsconf.png)
+
+tambahkan perintah berikut ke script confApache2.sh
+
+![](./img/17confAapche1.png)
+![](./img/17confapache2.png)
+
+jalankan confApache.sh
+
+## Testing
+lynx http://www.rjp.baratayuda.abimanyu.d26.com:14000
+
+![](./img/17lynx14000.png)
+
+lynx http://www.rjp.baratayuda.abimanyu.d26.com:14400
+
+![](./img/17lynx14400.png)
+
+# Soal 18
+Untuk mengaksesnya buatlah autentikasi username berupa “Wayang” dan password “baratayudayyy” dengan yyy merupakan kode kelompok. Letakkan DocumentRoot pada /var/www/rjp.baratayuda.abimanyu.yyy.
+
 
 
 
